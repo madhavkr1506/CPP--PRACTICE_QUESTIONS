@@ -23,16 +23,46 @@ void doublylinkedlistTraversal(struct node * ptr){
         ptr=ptr->prev;
     }
 }
-struct node * insertatbeginning(struct node * head , int data){
-    struct node * ptr=(struct node *)malloc(sizeof(struct node ));
-    ptr->data=data;
-    ptr->next=head;
-    ptr->prev=NULL;
-    if(head != NULL){
-        head->prev=ptr;
+// struct node * insertatbeginning(struct node * head , int data){
+//     struct node * ptr=(struct node *)malloc(sizeof(struct node ));
+//     ptr->data=data;
+//     ptr->next=head;
+//     ptr->prev=NULL;
+//     if(head != NULL){
+//         head->prev=ptr;
+//     }
+//     return ptr;
+// }
+ // insert in between
+// struct node * insertinbetween(struct node * head,int index,int data){
+//     struct node * ptr=(struct node * )malloc(sizeof(struct node ));
+//     struct node * p=head;
+//     int i=0;
+//     while(i != index - 1){
+//         p=p->next;
+//         i++;
+//     } 
+//     ptr->data=data;
+//     ptr->next=p->next;
+//     p->next=ptr;
+//     ptr->prev=p;
+//     return head;    
+// }
+
+// insert at last node ;
+struct node * insertatlastnode(struct node * head, int data){
+    struct node * ptr=(struct node * )malloc (sizeof(struct node ));
+    struct node * p=head;
+    while(p->next != NULL){
+        p=p->next;
     }
-    return ptr;
+    ptr->data=data;
+    p->next=ptr;
+    ptr->next=NULL;
+    ptr->prev=p;
+    return head;
 }
+
 // case 1 : delete first element
 struct node * deleteatnode (struct node * head){
     struct node * ptr=head;
@@ -78,6 +108,40 @@ struct node * deleteatgivenvalue(struct node * head, int value){
     }
     return head;
 }
+// insert at beginning
+struct node * insertatbeginning(struct node * head, int data){
+    struct node * ptr=(struct node*)malloc(sizeof(struct node ));
+    ptr->next=head;
+    ptr->data=data;
+    return ptr;
+}
+//  // insert in between
+// struct node * insertinbetween(struct node * head,int index,int data){
+//     struct node * ptr=(struct node * )malloc(sizeof(struct node ));
+//     struct node * p=head;
+//     int i=0;
+//     while(i != index - 1){
+//         p=p->next;
+//         i++;
+//     } 
+//     ptr->data=data;
+//     ptr->next=p->next;
+//     p->next=ptr;
+//     return head;
+    
+// }
+// // insert at last node ;
+// struct node * insertatlastnode(struct node * head, int data){
+//     struct node * ptr=(struct node * )malloc (sizeof(struct node ));
+//     struct node * p=head;
+//     while(p->next != NULL){
+//         p=p->next;
+//     }
+//     ptr->data=data;
+//     p->next=ptr;
+//     ptr->next=NULL;
+//     return head;
+// }
 int main(){
     struct node * head;
     struct node * second;
@@ -123,11 +187,14 @@ int main(){
     // head=deleteatnode(head);
     // head=deleteatindex(head,2);
     // head=deletelastnode(head);
-    head=deleteatgivenvalue(head,14);
-    traverse(head);
+    // head=deleteatgivenvalue(head,14);
+    // head=insertinbetween(head,2,99);
+    head=insertatlastnode(head,100);
+    // head=insertatbeginning(head,78);
+    // traverse(head);
     cout<<endl;
     // cout<<"reverse case : ";
-    // doublylinkedlistTraversal(head);
+    doublylinkedlistTraversal(head);
 
 return 0;
 }
