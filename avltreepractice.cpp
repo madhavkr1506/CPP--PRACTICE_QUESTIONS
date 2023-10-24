@@ -52,13 +52,24 @@ void postorder(struct node * root){
         cout<<root->data<<" ";
     }
 }
+
+void updateheight(struct node * root){
+    if(root == NULL){
+        return;
+    }
+    else{
+        root->height=max(getheight(root->left),getheight(root->right)) + 1;
+    }
+}
 struct node * leftrotate(struct node * root){
     struct node * a=root->right;
     struct node * b=a->left;
     a->left=root;
     root->right=b;
-    root->height=max(getheight(root->right),getheight(root->left)) + 1;
-    a->height=max(getheight(a->right),getheight(a->left)) + 1;
+    // root->height=max(getheight(root->right),getheight(root->left)) + 1;
+    // a->height=max(getheight(a->right),getheight(a->left)) + 1;
+    updateheight(root);
+    updateheight(a);
     return a;
 }
 struct node * rightrotate(struct node * root){
@@ -66,8 +77,11 @@ struct node * rightrotate(struct node * root){
     struct node * b = a->right;
     a->right=root;
     root->left=b;
-    root->height=max(getheight(root->right),getheight(root->left)) + 1;
-    a->height=max(getheight(a->right),getheight(a->left)) + 1;
+    // root->height=max(getheight(root->right),getheight(root->left)) + 1;
+    // a->height=max(getheight(a->right),getheight(a->left)) + 1;
+    updateheight(root);
+    updateheight(a);
+    return a;
 }
 struct node * insert(struct node * root, int data){
     if(root == NULL){
@@ -82,7 +96,8 @@ struct node * insert(struct node * root, int data){
     else{
         root->right=insert(root->right,data);
     }
-    root->height=max(getheight(root->right),getheight(root->left)) + 1;
+    // root->height=max(getheight(root->right),getheight(root->left)) + 1;
+    updateheight(root);
     int balance=balancefactor(root);
     if(balance > 1 && data > root->right->data){
         return leftrotate(root);
