@@ -22,14 +22,16 @@ int isfull(struct queue * ptr){
         return 0;
     }
 }
-int peek(struct queue * ptr,int i){
-    if((ptr->top - i + 1) < 0){
+int peek(struct queue * ptr, int i){
+    int index = ptr->top - i + 1;
+    if (index < ptr->beg) {
         return -1;
     }
     else{
-        return ptr->arr[ptr->top - i + 1];
+        return ptr->arr[index];
     }
 }
+
 void enqueue(struct queue * ptr,int value){
     if(isfull(ptr)){
         cout<<"queuee will overflow\n";
@@ -52,6 +54,7 @@ int dequeue(struct queue * ptr){
     }
     return value;
 }
+
 int queuetop(struct queue * ptr){
     return ptr->arr[0];
 
@@ -82,8 +85,17 @@ int main(){
         cin>>data;
         enqueue(q,data);
     }
-    bubblesort(q);
-    for(int i=1;i<=q->top+1;i++){
+    // bubblesort(q);
+    for(int i=1;i<=q->top-q->beg;i++){
+        cout<<peek(q,i)<<" ";
+    }
+    cout<<endl;
+    int del;
+    cin>>del;
+    for(int i=0;i<del;i++){
+        dequeue(q);
+    }
+    for(int i=q->top-q->beg;i>0;i--){
         cout<<peek(q,i)<<" ";
     }
 return 0;
