@@ -46,6 +46,17 @@ void remove(int arr[],int & num,int key){
         }
     }
 }
+
+void deleteOutsideRange(int arr[], int &num, int start, int last) {
+    int newSize = 0;
+    for (int i = 0; i < num; i++) {
+        if (arr[i] >= start && arr[i] <= last) {
+            arr[newSize++] = arr[i];
+        }
+    }
+    num = newSize;
+}
+
 void maxheap(int arr[],int num){
     for(int i=(num-2)/2;i>=0;i--){
         heapify(arr,num,i);
@@ -61,18 +72,19 @@ int main(){
     cout<<endl;
 
     maxheap(arr,num);
-    // int start;
-    // cin>>start;
-    // int last;
-    // cin>>last;
+    int start;
+    cin>>start;
+    int last;
+    cin>>last;
     // for(int i=start;i<=last;i++){
     //     deletenodeinrange(arr,num,i);
     // }
-    int key;
-    cin>>key;
+    // int key;
+    // cin>>key;
     // deletenodeinrange(arr,num,key);
-    remove(arr,num,key);
+    // remove(arr,num,key);
     // deletenode(arr,num);
+    deleteOutsideRange(arr,num,start,last);
     printarray(arr,num);
 return 0;
 }
